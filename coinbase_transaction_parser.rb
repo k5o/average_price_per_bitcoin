@@ -1,7 +1,7 @@
 require 'csv'
 
 class CoinbaseTransactionParser
-  def initialize(btc_amount, csv_name, cash_bonuses = 0)
+  def initialize(csv_name, cash_bonuses = 0)
     @commissions = 0.00
     @buys = 0.00
     @sells = 0.00
@@ -9,7 +9,6 @@ class CoinbaseTransactionParser
     @btc_bought = 0.00
     @btc_sold = 0.00
     @currency = ''
-    @btc_amount = btc_amount
     @csv = File.read(csv_name)
     @cash_bonuses = cash_bonuses # Optional param, see footnote at bottom
   end
@@ -63,8 +62,13 @@ class CoinbaseTransactionParser
   end
 
   def total_btc
-    # Use coinbase-derived default amount, or use specified amount
-    @btc_amount == 0 || @btc_amount.to_s.blank? ? @btc_bought - @btc_sold : @btc_amount
+    # Use coinbase-derived default amount, or use specified amount if cash bonuses are modified
+    if @cash_bonuses > 0
+      puts "Cash bonuses parameter detected, specify the correct amount of BTC for which to calculate"
+      gets.chomp.to_f
+    else
+      @btc_bought - @btc_sold
+    end
   end
 
   def ppc
@@ -89,14 +93,15 @@ class CoinbaseTransactionParser
   end
 end
 
-puts "(1/2) For how many BTC would you like to calculate? (0 or Enter to calculate automatically)"
-gets_btc_amount = gets.chomp.to_f
-puts "(2/2) Input CSV filename (if in current directory) or the path to it"
-gets_file_name = gets.chomp
+puts "Input CSV filename (if in current directory) or the path to it"
+file_name = gets.chomp
+cash_bonuses = 0 # See note below
 
-ctp = CoinbaseTransactionParser.new(gets_btc_amount, gets_file_name, 0)
+ctp = CoinbaseTransactionParser.new(file_name, cash_bonuses)
 ctp.run!
 
-# CoinbaseTransactionParser takes an optional 3rd parameter:
-# cash_bonuses = If you bought BTC off coinbase but sent some to another user for cash, input how much cash here (e.g. 481.40)
-# Otherwise, Coinbase will think you own this BTC even if you don't reflect it in the gets_btc_amount input, increasing your average PPC
+# CoinbaseTransactionParser takes an optional 3rd parameter cash_bonuses:
+# If you bought BTC off coinbase but sent some to another user for cash, input how much cash in the assignment above (e.g. 481.40)
+# Otherwise, Coinbase will think you own this BTC, inaccurately increasing your average PPC
+# You will be prompted for the accurate BTC amount when you run the script
+
