@@ -21,14 +21,15 @@ Input CSV filename (if in current directory) or the path to it
 cb.csv
 
       Transactions read: 16
-      Amount bought: 4.315 BTC for $3399.56
-      Amount sold: 1.68 BTC for $1181.18
-      Subtotal: $2218.38
-      Commissions: $48.20
+      Amount bought: 10.00 BTC for $2500.55
+      Amount sold: 7.50 BTC for $2250.25
+      Bitcoin: 2.50 BTC
+      Subtotal: $250.30
+      Commissions: $12.25
 
-      Total: $2266.58
+      Total: $262.55
 
-      Your average price per Bitcoin: $860.18
+      Your average price per Bitcoin: $105.02
 ```
 
 ## Extras

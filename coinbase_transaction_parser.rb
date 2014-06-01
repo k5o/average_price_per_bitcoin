@@ -83,6 +83,7 @@ class CoinbaseTransactionParser
       Transactions read: #{@count}
       Amount bought: #{@btc_bought} BTC for $#{buys}
       Amount sold: #{@btc_sold} BTC for $#{sells}
+      Bitcoin: #{total_btc} BTC
       Subtotal: $#{user_total}
       Commissions: $#{commissions}
 
