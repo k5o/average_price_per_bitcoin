@@ -1,9 +1,8 @@
-## Average Price Per Bitcoin
----
+# Average Price Per Bitcoin
 
 Simple ruby script to find your average price per bitcoin.
 
-### Usage
+## Usage
 
 1. Log into https://coinbase.com/reports
 2. Click New Report. Select your wallet, and under Type select **'Buys, sells, and merchant payouts'**. Select your desired date range.
@@ -13,7 +12,7 @@ Simple ruby script to find your average price per bitcoin.
 5. (Optional) When prompted, input how many BTC for which to calculate
 6. When prompted, input your csv filename from step 3 (or the path to it if the ruby file and the csv file are in different directories)
 
-### Example
+## Example
 ```shell
 $ ruby coinbase_transaction_parser.rb
 (1/2) For how many BTC would you like to calculate? (0 or Enter to calculate automatically)
@@ -32,6 +31,6 @@ cb.csv
       Your average price per Bitcoin: $860.18
 ```
 
-### Extras
+## Extras
 
 You may edit `coinbase_transaction_parser.rb` to add a third parameter to the class instance. This third parameter accepts a "cash bonus" amount, which you may use if you bought BTC on Coinbase, but traded someone BTC for cash. Otherwise, BTC will believe you have paid for that BTC even if it doesn't exist in your wallet, inflating your average price per bitcoin.
