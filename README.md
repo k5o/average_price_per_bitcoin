@@ -36,3 +36,9 @@ cb.csv
 You may edit `coinbase_transaction_parser.rb` to add a third parameter to the class instance. This third parameter accepts a "cash bonus" amount, which you may use if you bought BTC on Coinbase, but traded someone BTC for cash. Otherwise, BTC will believe you have paid for that BTC even if it doesn't exist in your wallet, inflating your average price per bitcoin.
 
 If this is edited, you will also be prompted to input the correct BTC amount to calculate for as well.
+
+## Contact
+
+Contact me via http://www.kokev.in for any comments or suggestions
+
+Happily accepting modest BTC tips [here](https://coinbase.com/kko)
