@@ -2,6 +2,9 @@
 
 Simple ruby script to find your average price per bitcoin.
 
+## Installation
+[Download](https://github.com/heyimkko/average_price_per_bitcoin/archive/master.zip) or clone the repository.
+
 ## Usage
 
 1. Log into https://coinbase.com/reports
