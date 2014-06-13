@@ -62,13 +62,21 @@ class CoinbaseTransactionParser
   end
 
   def total_btc
+    return @real_btc if @real_btc
+
     # Use coinbase-derived default amount, or use specified amount if cash bonuses are modified
     if @cash_bonuses > 0
-      puts "Cash bonuses parameter detected, specify the correct amount of BTC for which to calculate"
-      gets.chomp.to_f
+      puts "Cash bonuses parameter detected. Specify how much BTC is actually in your account (current assumed default: #{'%.2f' % default_btc_net}):"
+      @real_btc = gets.chomp.to_f
+
+      @real_btc = default_btc_net if @real_btc == 0.0 
     else
-      @btc_bought - @btc_sold
+      default_btc_net
     end
+  end
+
+  def default_btc_net
+    @btc_bought - @btc_sold
   end
 
   def ppc
@@ -105,4 +113,3 @@ ctp.run!
 # If you bought BTC off coinbase but sent some to another user for cash, input how much cash in the assignment above (e.g. 481.40)
 # Otherwise, Coinbase will think you own this BTC, inaccurately increasing your average PPC
 # You will be prompted for the accurate BTC amount when you run the script
-
