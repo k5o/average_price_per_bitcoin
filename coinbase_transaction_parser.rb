@@ -15,10 +15,8 @@ class CoinbaseTransactionParser
 
   def run!
     CSV.parse(@csv) do |row|
-      next if row.length != 11 # Skip irrelevant csv data from report generation
-
+      next unless row[1] == "Buy" || row[1] == "Sell" # Skip irrelevant csv data from report generation
       timestamp = row[0]
-      transaction_type = row[1]
       btc = row[2]
       subtotal = row[3]
       fee = row[4]
@@ -27,12 +25,12 @@ class CoinbaseTransactionParser
 
       @count += 1
 
-      if transaction_type == "Buy"
-        @buys += subtotal.to_f
-        @btc_bought += btc.to_f
-      else
+      if row[1] == "Sell"
         @sells += subtotal.to_f
         @btc_sold += btc.to_f
+      else
+        @buys += subtotal.to_f
+        @btc_bought += btc.to_f
       end
 
       @commissions += fee.to_f
@@ -68,8 +66,9 @@ class CoinbaseTransactionParser
     if @cash_bonuses > 0
       puts "Cash bonuses parameter detected. Specify how much BTC is actually in your account (current assumed default: #{'%.2f' % default_btc_net}):"
       @real_btc = gets.chomp.to_f
-
       @real_btc = default_btc_net if @real_btc == 0.0 
+
+      @real_btc
     else
       default_btc_net
     end
